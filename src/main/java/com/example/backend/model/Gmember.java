@@ -32,6 +32,15 @@ public class Gmember {
     private User user;
 
 
+    
+    public Gmember() {
+    }
+
+    public Gmember(Integer gid, Chat chat, User user) {
+        this.gid = gid;
+        this.chat = chat;
+        this.user = user;
+    }
 
     public Integer getGid() {
         return gid;

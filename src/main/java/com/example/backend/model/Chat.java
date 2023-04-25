@@ -15,6 +15,14 @@ public class Chat {
     
     private String chatname;
 
+    public Chat() {
+    }
+
+    public Chat(Integer cid, String chatname) {
+        this.cid = cid;
+        this.chatname = chatname;
+    }
+
     public Integer getCid(){
         return cid;
     }

@@ -1,7 +1,13 @@
 package com.example.backend.model;
 
+
+import java.sql.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,19 +24,29 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)    
     private Integer mid;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name="cid", nullable = false)
-    @JsonIgnore
     private Chat chat;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name="uid", nullable = false)
-    @JsonIgnore
     private User user;
 
     private String txt;
+    @CreationTimestamp
+    @Column(name="sent", updatable = false)
+    private Timestamp sent;
+  
+    public Message() {
+    }
 
-    private String sent;
+    public Message(Integer mid, Chat chat, User user, String txt, Timestamp sent){
+        this.mid = mid;
+        this.chat = chat;
+        this.user = user;
+        this.txt = txt;
+        this.sent = sent;
+    }
 
     public Integer getMid(){
         return mid;
@@ -46,10 +62,29 @@ public class Message {
         this.txt = txt;
     }
 
-    public String getSent(){
+    public Chat getChat() {
+        return chat;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Timestamp getSent() {
         return sent;
     }
-    public void setSent(String sent){
+
+    public void setSent(Timestamp sent) {
         this.sent = sent;
     }
+
+  
 }    
